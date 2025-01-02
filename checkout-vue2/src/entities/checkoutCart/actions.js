@@ -1,11 +1,13 @@
 import apiRequest from "@/integration/api.js";
+import checkoutState from "@/state/checkout.js";
 
 const fetchCart = async () => {
   return await apiRequest({ method: "get", url: "/Cart" });
 };
 
 const fetchAddress = async () => {
-  return await apiRequest({ method: "get", url: "/Address" });
+  const addresses = await apiRequest({ method: "get", url: "/Address" });
+  checkoutState.state.addressBook = addresses;
 };
 
 const fetchPaymentMethods = async () => {
@@ -16,13 +18,14 @@ const fetchSavedCreditCards = async () => {
   return await apiRequest({ method: "get", url: "/Payment/creditcards" });
 };
 
-const updateOrderAddres = async (id) => {
+const updateOrderAddress = async (id) => {
   return await apiRequest({ method: "put", url: `/Address/select/${id}` });
 };
 
 const saveNewAddress = async (data) => {
   try {
     const result = await apiRequest({ method: "post", url: "/Address", data });
+    checkoutState.addAddress(result);
     console.log(result);
   } catch (error) {
     console.log(error);
@@ -57,7 +60,7 @@ const addCoupon = async (code) => {
 
 export {
   fetchCart,
-  updateOrderAddres,
+  updateOrderAddress,
   fetchAddress,
   fetchPaymentMethods,
   fetchSavedCreditCards,

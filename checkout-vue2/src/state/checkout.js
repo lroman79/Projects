@@ -10,6 +10,7 @@ const state = Vue.observable({
     couponCode: "",
     termsAndConditionsAccepted: true,
   },
+  addressBook: [],
   paymentMethod: null,
 });
 
@@ -20,6 +21,9 @@ const methods = {
   setPaymentMethod: (method) => {
     if (!method) return;
     state.paymentMethod = method;
+  },
+  addAddress: (address) => {
+    state.addressBook.push(address);
   },
 };
 

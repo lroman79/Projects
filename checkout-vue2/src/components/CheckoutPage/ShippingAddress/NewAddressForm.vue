@@ -188,7 +188,6 @@ export default {
       }
     },
     closeForm() {
-      console.log(123);
       this.$emit("closeForm");
     },
   },

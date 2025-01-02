@@ -17,6 +17,7 @@
 
 <script>
 import { fetchAddress } from "@/entities/checkoutCart/actions.js";
+import checkoutState from "@/state/checkout.js";
 
 import AddressBook from "./AddressBook.vue";
 import NewAddressForm from "./NewAddressForm.vue";
@@ -28,9 +29,13 @@ export default {
   },
   data() {
     return {
-      addressBook: [],
       showForm: false,
     };
+  },
+  computed: {
+    addressBook() {
+      return checkoutState.state.addressBook;
+    },
   },
   methods: {
     addAddress() {
@@ -38,8 +43,7 @@ export default {
     },
   },
   async created() {
-    this.addressBook = await fetchAddress();
-    console.log("address", this.addressBook);
+    await fetchAddress();
   },
 };
 </script>

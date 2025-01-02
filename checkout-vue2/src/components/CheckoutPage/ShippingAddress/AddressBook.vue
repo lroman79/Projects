@@ -28,7 +28,7 @@
 
 <script>
 import checkoutState from "@/state/checkout.js";
-import { updateOrderAddres } from "@/entities/checkoutCart/actions.js";
+import { updateOrderAddress } from "@/entities/checkoutCart/actions.js";
 
 export default {
   props: { addressBook: { type: Array, default: () => [] } },
@@ -41,9 +41,8 @@ export default {
     async onAddress(id, index) {
       this.activeAddress = index;
       if (checkoutState.state.order.addressId !== id) {
-        console.log("address clicked:", id);
         checkoutState.state.order.addressId = id;
-        updateOrderAddres(id);
+        updateOrderAddress(id);
       }
     },
   },
